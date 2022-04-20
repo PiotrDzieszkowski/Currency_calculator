@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>Kalkulator walutowy</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.CSS') }}">
+    </head>
+    <body>
+        <div class="box">
+            <h1>
+                Kalkulator walut
+            </h1>
+            <div id="description">
+            <p><strong>Przelicza wybraną walutę na złotówki</strong></p>
+            </div>
+            <div class="form">
+            <form method="POST">
+                <label for="currency"><span>Wybierz walutę:</span>
+                <select name="currency" id="currency">
+                    {% for code in codes %}
+                    <option value={{code}}>{{code}}</option>
+                    {% endfor %}
+                </select>
+                </label>
+                <label for="amount"><span>Podaj kwotę:</span>
+                <input type="text" id="amount" name="amount" required>
+                </label>
+                <input id="button" type="submit" value="Oblicz">
+            </div>
+            </form>
+                {% if exchange_value %}
+                <div id="result">
+                    <p><strong>{{amount}} {{currency}} ({{currency_name}})</strong> to koszt <strong>{{exchange_value}} PLN</strong></p>
+                </div>
+                    <form method='GET' action="/calc/">
+                        <input id="clear" type="submit" value="Wyczyść">
+                    </form>
+                {% endif %}
+
+        </div>
+    </body>
+</html>
